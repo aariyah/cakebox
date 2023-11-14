@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator,MaxValueValidator
 
 # Create your models here.
 
@@ -21,21 +22,29 @@ class Category(models.Model):
     
 class Cakes(models.Model):
     name=models.CharField(max_length=200)
+    
     options=(
-        ("choclate cake","choclate cake"),
-        ("butterscotch","butterscotch"),
-        ("red velvet","red velvet"),
+        ("cream cake","cream cake"),
         ("milk cake","milk cake"),
         ("cheese cake","cheese cake"),
         ("cup cake","cup cake"),
         ("plum cake","plum cake"),
-        
-    )
-    collections=models.CharField(max_length=200,choices=options,default="choclate cake")
+        )
+    category=models.CharField(max_length=200,choices=options,default="choclate cake")
     image=models.ImageField(upload_to="images")
-    brand=models.CharField(max_length=200)
+    options=(("choclate","choclate"),
+             ("vanilla","vanilla"),
+             ("mango","mango"),
+             ("blueberry","blueberry"),
+             ("pineapple","pineapple"),
+             ("hazelnut","hazelnut"),
+             ("almond","almond"),
+             ("strawberry","strawberry")
+             
+             )
+    flavours=models.CharField(max_length=200,choices=options,default="choclate")
     
-    # Category=models.ForeignKey(Category,null=True,on_delete=models.SET_NULL)#on_delete=set null
+    
 
     def _str_(self):
         return self.name
@@ -55,7 +64,13 @@ class CakeVarients(models.Model):
         
     )
 
-    size=models.CharField(max_length=200,choices=options,default="one kg")
+    size=models.CharField(max_length=200,choices=options,default="1kg")
+    options=(
+        ("round","round"),
+        ("square","square"),
+        ("heartshape","heartshape")
+    )
+    shape=models.CharField(max_length=200,choices=options,default="round")
     cake=models.ForeignKey(Cakes,on_delete=models.CASCADE)
 
 
@@ -97,8 +112,6 @@ class Orders(models.Model):
 
 
 
-
-from django.core.validators import MinValueValidator,MaxValueValidator
 class Reviews(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     cakevarient=models.ForeignKey(CakeVarients,on_delete=models.CASCADE)
