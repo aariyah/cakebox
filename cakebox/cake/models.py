@@ -22,7 +22,6 @@ class Category(models.Model):
     
 class Cakes(models.Model):
     name=models.CharField(max_length=200)
-    
     options=(
         ("cream cake","cream cake"),
         ("milk cake","milk cake"),
@@ -30,7 +29,7 @@ class Cakes(models.Model):
         ("cup cake","cup cake"),
         ("plum cake","plum cake"),
         )
-    category=models.CharField(max_length=200,choices=options,default="choclate cake")
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
     image=models.ImageField(upload_to="images")
     options=(("choclate","choclate"),
              ("vanilla","vanilla"),
