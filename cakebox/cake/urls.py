@@ -1,7 +1,8 @@
 from django.urls import path
 
 from cake.views import SignUpView,SignInView,CategoryCreateView,remove_category,CakeCreateView,CakeListView,CakeUpdateView\
-,remove_cakeview,CakeVarientCreateView,CakeDetailView,CakeVarientUpdateView,remove_varient,OfferCreateView
+,remove_cakeview,CakeVarientCreateView,CakeDetailView,CakeVarientUpdateView,remove_varient,OfferCreateView,remove_offer\
+,sign_out_view
 
 
 
@@ -19,7 +20,9 @@ urlpatterns=[
     path("cake/<int:pk>/",CakeDetailView.as_view(),name="cake-detail"),
     path("varients/<int:pk>/change/",CakeVarientUpdateView.as_view(),name="update-varient"),
     path("varients/<int:pk>/remove",remove_varient,name="remove-varient"),
-    path("varients/<int:pk>/offers/add",OfferCreateView.as_view(),name="offers-add")
+    path("varients/<int:pk>/offers/add",OfferCreateView.as_view(),name="offers-add"),
+    path("offers/<int:pk>/remove",remove_offer,name="delete-offer"),
+    path("logout/",sign_out_view,name="signout"),
 
 
     
